@@ -1,18 +1,16 @@
 @echo off
-chcp 65001 >nul
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
 
 set "PYW="
 
-rem 优先用 PATH 里的 pythonw / pyw，但要求同目录 python.exe 能 import tkinter
-call :try_where pythonw
+if not defined PYW call :try_where pythonw
 if not defined PYW call :try_where pyw
 if defined PYW goto :run
 
 echo.
-echo 未找到可用的 Python：需要 Python 3.8+ 且带 tkinter（官方安装包默认带）。
-echo 也可以把 pythonw.exe 所在目录加入 PATH 后重试。
+echo Python 3.8+ with tkinter is required.
+echo Add the folder containing pythonw.exe to PATH and try again.
 echo.
 pause
 exit /b 1
